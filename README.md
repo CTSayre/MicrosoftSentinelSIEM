@@ -5,10 +5,10 @@ This project includes the deployment and network configuration of Azure Cloud re
 <br />
 
 
-<h2>UtilitiesUsed</h2>
+<h2>UtilitiesUsed and Repositories Used</h2>
 
 - <b>[Azure](https://azure.microsoft.com/en-us)</b>
-</b>
+- <b>[Sentinel](https://github.com/Azure/Azure-Sentinel/tree/master/Tools/Sentinel-All-In-One)</b>
 
 
 <h2>Environments Used </h2>
@@ -18,8 +18,8 @@ This project includes the deployment and network configuration of Azure Cloud re
 <h2>Program walk-through:</h2>
 
 <p align="center">
-Download and Install PuTTY then Connect: <br/>
-<img src="https://i.imgur.com/H6V8GVQ.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+Deploy Sentintel to Azure <br/>
+<img src="https://i.imgur.com/ppogahf.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br/>
 <p align="center">
 Update and Upgrade Packages: <br/>
