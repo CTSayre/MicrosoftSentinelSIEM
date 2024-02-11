@@ -24,7 +24,7 @@ Deploy Sentintel to Azure<br/>
 <br />
 <br />
 <br />
-I start by using the github repository provided for Sentinel and deploy to Azure. I name my instance SEC-Monitoring and add the following options before deploying Sentinel:<br />
+I start by using the github repository provided for Sentinel and deploy to Azure. I name my instance "SEC-Monitoring" and add the following options before deploying Sentinel:<br />
 <div align="center">
 
   <b>[Initial Settings](https://imgur.com/a/0WixhPy)</b>
