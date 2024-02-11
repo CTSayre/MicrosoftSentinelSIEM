@@ -20,7 +20,8 @@ This project includes the deployment and network configuration of Azure Cloud re
 <h2>Program walk-through:</h2>
 
 <p align="center">
-Deploy Sentintel to Azure <br/>
+Deploy Sentintel to Azure<br/>
+<br />
 <br />
 <br />
 I start by using the github repository provided for Sentinel and deploy to Azure. I name my instance SEC-Monitoring and add the following options before deploying Sentinel:<br />
@@ -36,6 +37,7 @@ I start by using the github repository provided for Sentinel and deploy to Azure
 <br />
 <p align="center">
 <b>Adding Diagnostic, Analytics, and Watchlist Rules:</b><br/>
+<br />
 <br />
 <br />
 Fist I set up a diagnostic rule to have my logs sent to my workspace. I add the following options:
@@ -84,6 +86,7 @@ Alert grouping was then enabled to group matching alerts with matching IP addres
 <b>Disabling Security Features, Adding New Users and Creating Incidents:</b><br/>
 <br />
 <br />
+<br />
 I first disable security settings provided by Azure AD to allow for weaker passwords, password spray attacks, and much more to occur.<br/>
 <br />
 <img src="https://i.imgur.com/BCgXKno.png" height="80%" width="80%" alt="disable security settings"/>
@@ -111,6 +114,7 @@ After disabling the security settings, I then proceed to create a new VM from wh
 <img src="https://i.imgur.com/sIIXsJ7.png" height="80%" width="80%" alt="VM"/>
 <br />
 <br />
+<br />
 <p align="center">
 <b>Incident Analysis:</b><br/>
 <br />
@@ -134,6 +138,7 @@ I can edit the query created for the rule logic to see all past logins for the a
 <img src="https://i.imgur.com/RwNM2Q8.png" height="80%" width="80%" alt="entity behavior"/>
 <br />
 <br />
+<br />
 <p align="center">
 <b>Incident Remediation:</b><br/>
 <br />
@@ -148,12 +153,69 @@ Now that I have gathered evidence of suspicious activity that would be considere
 <br />
 I now proceed to close the incidents making sure to comment my findings and remediation steps after talking to the owner of the account.<br/>
 <br />
-<img src="https://i.imgur.com/nXf1dza.png" height="80%" width="80%" alt="VM deletion"/>
-
-
-
-
-
+<img src="https://i.imgur.com/nXf1dza.png" height="80%" width="80%" alt="incident closed"/>
+<br />
+<br />
+<br />
+<b>Playbook Creation for ChatGPT:</b><br/>
+<br />
+<br />
+<br />
+Now that we have remeidated the incidents we can create a new Playbook utilizing ChatGPT. I navigtate to "Automation" in Sentinel, then create a playbook with incident trigger. The following settings are used:<br/>
+<br />
+<img src="https://i.imgur.com/gj4ak3m.png" height="80%" width="80%" alt="playbook Creation"/>
+<br />
+<br />
+Once the Playbook is created, the Logic app designer is opened. From here I will add a new step and then select GPT3, which will then prompt me for an API key. Using ChatGPT I can recieve one free use of the API key generator. I generate the key and enter it in in the Logic app designer.<br/>
+<br />
+<img src="https://i.imgur.com/o6TJZ7e.png" height="80%" width="80%" alt="logic app"/>
+<img src="https://i.imgur.com/jcvW4gh.png" height="80%" width="80%" alt="api key creation"/>
+<img src="https://i.imgur.com/dP9A0f6.png" height="80%" width="80%" alt="api submit"/>
+<br />
+<br />
+Once the key is submitted, I add a custom engine as "Davinci-002/3" has been deprecated, instead I use "gpt-3.5-turbo-instruct" as the engine. I then change the max token to 300 so that the auto generated responses have more characters available. For the prompt I add the following to shape the responses ChatGPT will give. This make is so ChatGPT provides a comment on an incident with reccomendedations on how to remediate when the playbook is run.<br/>
+<br />
+<img src="https://i.imgur.com/BoZSjjy.png" height="80%" width="80%" alt="logic app step1"/>
+<img src="https://i.imgur.com/NRcPF95.png" height="80%" width="80%" alt="logic app step2"/>
+<br />
+<br />
+I then assign permissions to GPT to allow to write the comments within Sentinel. This requires that the Playbook be assigned the "Responder" role.<br/>
+<br />
+<img src="https://i.imgur.com/Ou98SZA.png" height="80%" width="80%" alt="playbook role assignment1"/>
+<img src="https://i.imgur.com/0vKNSYw.png" height="80%" width="80%" alt="playbook role assignment2"/>
+<img src="https://i.imgur.com/YF8SGrX.png" height="80%" width="80%" alt="playbook role assignment3"/>
+<br />
+<br />
+Now that the Playbook has the appropriate role, I can now run it against an incident. I kept one incident open from earlier and now I can run the Playbook to generate a comment.<br/>
+<br />
+<img src="https://i.imgur.com/M9kZ7Or.png" height="80%" width="80%" alt="GPT comment1"/>
+<img src="https://i.imgur.com/61GESG3.png" height="80%" width="80%" alt="GPT comment2"/>
+<br />
+<br />
+I will now create an automation rule to run the playbook automatically without me needing to run it for an incident manually. I set the trigger to "When an incident is created" and change the action to "Run playbook" and then select the ChatGPT playbook. The order of the rule is changed to "5" I then create a predefined incident to test the automation on. The automation is working as expected.<br/>
+<br />
+<img src="https://i.imgur.com/fcqDmbS.png" height="80%" width="80%" alt="Automation rule"/>
+<img src="https://i.imgur.com/ZFWWlCI.png" height="80%" width="80%" alt="Incident Creation"/>
+<img src="https://i.imgur.com/1Y0osBR.png" height="80%" width="80%" alt="Automation comment"/>
+<br />
+<br />
+Using the provided Github repository, I use the provided link to deploy to Azure and create a playbook and name it "ChatGPT-Incident-Enrichment-V2". This will provide a more advanced version of ChatGPT, one that will allow for detailed remediation steps. From there I navigate to the logic app designer and then change the connections the one established when creating the first playbook this will add the previous parameters that were set in the first playbook. Then the max tokens are set to 600.<br/>
+<br />
+<img src="https://i.imgur.com/Z4ChuWS.png" height="80%" width="80%" alt="GPT2 app1"/>
+<img src="https://i.imgur.com/DJjKhIy.png" height="80%" width="80%" alt="GPT2 app2"/>
+<br />
+<br />
+With this set up I now assign the responder role as I previously did and the navigate to instances to run the playbook to see the differences. This version should provide me with detailed steps that should taken to remediate an incident and will even open tasks for me to complete.<br/>
+<br />
+<img src="https://i.imgur.com/g4S66Nm.png" height="80%" width="80%" alt="comment Generated"/>
+<img src="https://i.imgur.com/hIzjCsR.png" height="80%" width="80%" alt="GPT2 app2"/>
+<br />
+<br />
+<br />
+<br />
+<h2>Conclusion</h2>
+<br />
+Microsoft Sentinel has been successfully deployed and configured to monitor and log suspicious and malicious activity and has been enhanced through the use of ChatGPT to reccomend steps to remediate the various kinds of incidents that are generated.
 </p>
 
 <!--
