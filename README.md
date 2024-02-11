@@ -36,6 +36,8 @@ I start by using the github repository provided for Sentinel and deploy to Azure
 Adding Diagnostic, Analytics, and Playbook Rules: <br/>
 <br />
 Fist I set up a diagnostic rule to have my logs sent to my workspace. I add the following options:
+<br />
+<br />
 <img src="https://i.imgur.com/5jdpCop.png" height="80%" width="80%" alt=""/>
 <br />
 <br />
