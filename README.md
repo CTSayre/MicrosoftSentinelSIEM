@@ -1,7 +1,7 @@
 # <h1>Microsoft Sentinel and ChatGPT Integration</h1>
 
 <h2>Description</h2>
-This project includes the deployment and network configuration of Azure Cloud resources to create a vulnerable machine for Microsoft Sentinel to monitor and log incidents. Integrates ChatGPT into playbooks to include auto generated tasks with reccomended remediation steps. Finally, included is the configuration of Azure AD (Entra ID), watchlists, analytic rules, and user and entity behavior analytics (UEBA).
+This project is to monitor and log incidents and learn how to enhance the system using AI. This includes the deployment and network configuration of Azure Cloud resources to create a vulnerable machine for Microsoft Sentinel to monitor and log incidents. Integrates ChatGPT into playbooks to include auto generated tasks with reccomended remediation steps. Finally, included is the configuration of Azure AD (Entra ID), watchlists, analytic rules, and user and entity behavior analytics (UEBA).
 <br />
 
 
